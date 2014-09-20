@@ -28,11 +28,11 @@ def Load(type, fname, owner, issuer, issdname):
   print(r.text)
   updateredis.update_redis(owner, issuer, url, issdname) 
 
-def processPart(part, owner, issueri, issdname):
+def processPart(part, owner, issuer, issdname):
   ctype = part.get_content_type()
   print("CTYPE: " +ctype)
   if ctype in ['image/jpeg','image/jpg', 'image/png','application/pdf']:
-    fw = open(part.get_filename(), 'wb')
+    fw = open(issuer + ":" + owner + ":" + part.get_filename(), 'wb')
     fw.write(part.get_payload(decode=True)) 
     fname=fw.name
     fw.close()
@@ -71,7 +71,7 @@ class EventHandler(pyinotify.ProcessEvent):
 
 handler = EventHandler()
 notifier = pyinotify.Notifier(wm, handler)
-wdd = wm.add_watch('/var/mail/vhosts/paperlessclub.org', mask, auto_add=True, rec=True)
+wdd = wm.add_watch('/home/vmail/', mask, auto_add=True, rec=True)
 
 notifier.loop()
 
