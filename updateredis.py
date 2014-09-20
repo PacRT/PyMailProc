@@ -5,7 +5,7 @@ import register
 
 lua = '''
 local ownuid = redis.call('GET', "username:" ..KEYS[1].. ":uid")
-local issuid = redis.call('GET', "username:" ..KEYS[2].. ":uid") # change it to "GET email:<real email as KEYS[2]:uid"
+local issuid = redis.call('GET', "username:" ..KEYS[2].. ":uid") -- change it to "GET email:<real email as KEYS[2]:uid"
 redis.call('ZADD', "owner:"  ..ownuid..":docs", ARGV[1], ARGV[2])
 redis.call('ZADD', "issuer:"  ..issuid..":docs", ARGV[1], ARGV[2])
 redis.call('HMSET', "doc:"..ARGV[2], "owner.uid", ownuid , "issuer.uid", issuid)
