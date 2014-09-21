@@ -25,6 +25,8 @@ def Load(type, fname, owner, issuer, issdname):
   files = {'file': open(fname, 'rb')}
   r = requests.post(url, files=files)
   print("File is uploading the type is: ", type)
+  extension = type.split('/')[1]
+  print("Extension: " + extension)
   print(r.text)
   updateredis.update_redis(owner, issuer, url, issdname) 
 
@@ -32,7 +34,7 @@ def processPart(part, owner, issuer, issdname):
   ctype = part.get_content_type()
   print("CTYPE: " +ctype)
   if ctype in ['image/jpeg','image/jpg', 'image/png','application/pdf']:
-    fw = open(issuer + ":" + owner + ":" + part.get_filename(), 'wb')
+    fw = open(issuer + ":" + owner + "/" + part.get_filename(), 'wb')
     fw.write(part.get_payload(decode=True)) 
     fname=fw.name
     fw.close()
