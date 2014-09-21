@@ -24,7 +24,7 @@ def Load(type, fname, owner, issuer, issdname):
   url = getFileId()
   files = {'file': open(fname, 'rb')}
   r = requests.post(url, files=files)
-  print("File is uploading")
+  print("File is uploading the type is: ", type)
   print(r.text)
   updateredis.update_redis(owner, issuer, url, issdname) 
 
