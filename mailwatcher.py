@@ -27,8 +27,10 @@ def Load(type, fname, owner, issuer, issdname):
   print("File is uploading the type is: ", type)
   extension = type.split('/')[1]
   print("Extension: " + extension)
+  finalurl = url+ "." +extension
+  print("Final URL: " + finalurl)
   print(r.text)
-  updateredis.update_redis(owner, issuer, url, issdname) 
+  updateredis.update_redis(owner, issuer, finalurl, issdname)
 
 def processPart(part, owner, issuer, issdname):
   ctype = part.get_content_type()
