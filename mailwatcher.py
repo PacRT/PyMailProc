@@ -34,7 +34,7 @@ def processPart(part, owner, issuer, issdname):
   ctype = part.get_content_type()
   print("CTYPE: " +ctype)
   if ctype in ['image/jpeg','image/jpg', 'image/png','application/pdf']:
-    fw = open(issuer + ":" + owner + "/" + part.get_filename(), 'wb')
+    fw = open(issuer + ":" + owner + ":" + part.get_filename(), 'wb')
     fw.write(part.get_payload(decode=True)) 
     fname=fw.name
     fw.close()
