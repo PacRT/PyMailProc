@@ -22,7 +22,9 @@ def sendmail(json_msg):
     except:
         name = "There"
 
-    msg = MIMEText("Hello " + name + "!!! Thanks for the registration request. Check your email for further actions. It may take longer due to system load and verification.")
+    msg = MIMEText("Hello " + name + "!!! Thanks for the registration request. Check your email for further actions. It may take longer due to system load and verification.\n"
+                                     "Remember your username: " + json_msg['username']+ " and email: " + json_msg['email'] + " - both are unique and can not be used again to register another user.")
+
     msg['Subject'] = "Paperless CLub registration request confirmation message"
     msg['To'] = json_msg['email']
     msg['Bcc'] = "chiradip@chiradip.com"
