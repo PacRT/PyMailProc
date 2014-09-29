@@ -9,7 +9,7 @@ logging.basicConfig(filename='/var/log/confirmmemail.log',level=logging.DEBUG)
 
 logging.debug("Starting up....")
 
-s = smtplib.SMTP('paperlessclub.org')
+s = smtplib.SMTP('192.168.1.2')
 
 r = redis.Redis()
 p = r.pubsub()
@@ -30,18 +30,18 @@ def sendmail(json_msg):
     s.send_message(msg)
 
 def sendconfemail(msg):
-    print(str(msg))
+    logging.debug(str(msg))
     try:
         j_son = msg.decode('utf-8')
         vj_son = json.loads(j_son)
-        print(vj_son)
+        logging.debug(vj_son)
         sendmail(vj_son)
     except AttributeError:
-        print(msg, " :: Possibly the literal is not string and cannot be treated as JSON")
+        logging.debug(msg, " :: Possibly the literal is not string and cannot be treated as JSON")
     except ValueError:
-        print("Possible illegal JSON structure")
+        logging.debug("Possible illegal JSON structure")
     except:
-        print("something wrong", sys.exc_info())
+        logging.debug("something wrong", sys.exc_info())
 
 
 for message in p.listen():
